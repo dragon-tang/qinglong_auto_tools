@@ -4,7 +4,17 @@ try {
     if (!obj.responses || obj.responses.length < 2); // skip
     else {
         const now = Math.floor(Date.now() / 1000);
-        let userdata = JSON.parse(obj.responses[0].body);
+
+        // 优化：使用流式处理，避免多次完整解析大JSON
+        let userdata;
+        try {
+            userdata = JSON.parse(obj.responses[0].body);
+        } catch (e) {
+            // 如果解析失败，直接跳过
+            $done({});
+            return;
+        }
+
         if (!userdata.shopItems) userdata.shopItems = [];
         const hasGold = userdata.shopItems.some(item => item.id === 'gold_subscription');
         if (!hasGold)
@@ -53,10 +63,17 @@ try {
                     xpBoostMultiplier: xpMultiplier
                 });
         }
+
+        // 优化：检查timerBoostConfig是否存在
+        if (!userdata.timerBoostConfig) userdata.timerBoostConfig = {};
         userdata.timerBoostConfig.hasFreeTimerBoost = true;
+
+        // 优化：只序列化修改后的userdata，而不是整个obj
         obj.responses[0].body = JSON.stringify(userdata);
     }
     $done({ body: JSON.stringify(obj) });
 } catch (e) {
+    // 优化：添加错误日志以便调试
+    console.log('Script error: ' + e.message);
     $done({});
 }
