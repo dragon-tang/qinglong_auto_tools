@@ -11,7 +11,7 @@ timer_switch = switch, tag = 限时挑战时间增强, desc = 开启后可在限
 timer_mins = input, "60", tag = 自定义挑战时长(分钟), desc = 请输入你想要的时长
 
 [Script]
-http-response ^https?:\/\/.*\.duolingo\.c(n|om)\/.* script-path=https://raw.githubusercontent.com/dragon-tang/qinglong_auto_tools/refs/heads/master/lingoDuo-xaM-enhanced-fixed-v2.js, requires-body=true, timeout=120, tag=Max 解锁, argument=[{xp_boost}, {multiplier}]
+http-response ^https?:\/\/.*\.duolingo\.c(n|om)\/.* script-path=https://raw.githubusercontent.com/dragon-tang/qinglong_auto_tools/refs/heads/master/lingoDuo-xaM-enhanced-fixed-v3.js, requires-body=true, timeout=120, tag=Max 解锁, argument=[{xp_boost}, {multiplier}]
 
 http-response ^https?:\/\/(ios-api-[a-z0-9-]+|api\d+)\.duolingo\.c(n|om)\/.*\/live-ops-challenges script-path=https://raw.githubusercontent.com/TAKAGIVEGETA/MyScripts/refs/heads/main/lingoDuo/lingoDuo-time-modifier.js, requires-body=true, timeout=120, tag=挑战时长修改, enable={timer_switch}, argument=[{timer_mins}]
 
