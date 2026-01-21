@@ -2,8 +2,8 @@ try {
     let obj = JSON.parse($response.body);
 
     // 添加日志：记录请求信息
-    console.log('[Duolingo Script] Processing batch response');
-    console.log('[Duolingo Script] Responses count:', obj.responses ? obj.responses.length : 0);
+    //console.log('[Duolingo Script] Processing batch response');
+    //console.log('[Duolingo Script] Responses count:', obj.responses ? obj.responses.length : 0);
 
     if (!obj.responses || obj.responses.length < 2 || (obj.responses[0].headers && 'etag' in obj.responses[0].headers)); // skip
     else {
@@ -11,15 +11,15 @@ try {
 
         // 添加日志：记录响应体大小
         const responseBodySize = obj.responses[0].body ? obj.responses[0].body.length : 0;
-        console.log('[Duolingo Script] Response body size:', responseBodySize, 'bytes');
+        //console.log('[Duolingo Script] Response body size:', responseBodySize, 'bytes');
 
         let userdata = JSON.parse(obj.responses[0].body);
 
         // 添加日志：记录修改前的状态
-        console.log('[Duolingo Script] Before modification:');
-        console.log('  subscriberLevel:', userdata.subscriberLevel);
-        console.log('  shopItems count:', userdata.shopItems ? userdata.shopItems.length : 0);
-        console.log('  has gold_subscription:', userdata.shopItems ? userdata.shopItems.some(item => item.id === 'gold_subscription') : false);
+        //console.log('[Duolingo Script] Before modification:');
+        //console.log('  subscriberLevel:', userdata.subscriberLevel);
+        //console.log('  shopItems count:', userdata.shopItems ? userdata.shopItems.length : 0);
+        //console.log('  has gold_subscription:', userdata.shopItems ? userdata.shopItems.some(item => item.id === 'gold_subscription') : false);
 
         // 原始的VIP修改逻辑
         if (!userdata.shopItems) userdata.shopItems = [];
@@ -74,16 +74,16 @@ try {
         userdata.timerBoostConfig.hasFreeTimerBoost = true;
 
         // 添加日志：记录修改后的状态
-        console.log('[Duolingo Script] After modification:');
-        console.log('  subscriberLevel:', userdata.subscriberLevel);
-        console.log('  shopItems count:', userdata.shopItems.length);
-        console.log('  has gold_subscription:', userdata.shopItems.some(item => item.id === 'gold_subscription'));
+        //console.log('[Duolingo Script] After modification:');
+        //console.log('  subscriberLevel:', userdata.subscriberLevel);
+        //console.log('  shopItems count:', userdata.shopItems.length);
+        //console.log('  has gold_subscription:', userdata.shopItems.some(item => item.id === 'gold_subscription'));
 
         obj.responses[0].body = JSON.stringify(userdata);
-        console.log('[Duolingo Script] Modification completed successfully');
+        //console.log('[Duolingo Script] Modification completed successfully');
     }
     $done({ body: JSON.stringify(obj) });
 } catch (e) {
-    console.log('[Duolingo Script] Error:', e.message);
+    //console.log('[Duolingo Script] Error:', e.message);
     $done({});
 }
