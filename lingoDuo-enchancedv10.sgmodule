@@ -1,0 +1,14 @@
+#!name=Duolingo Max 解锁 增强版
+#!desc=Duolingo iOS 版解锁 Max 会员，实现无限体力、去广告、解锁视频通话等，支持经验加倍/自定义挑战时长
+#!author=Takagivegeta
+#!icon=https://github.com/TAKAGIVEGETA/MyScripts/blob/main/lingoDuo/lingoDuo.png?raw=true
+#!homepage=https://github.com/TAKAGIVEGETA/MyScripts/tree/main/lingoDuo
+#!arguments=xp_boost:tag = 开启 XP 经验加倍,multiplier:"2",timer_switch:tag = 限时挑战时间增强,timer_mins:"60"
+
+[Script]
+Max 解锁 = type=http-response, pattern=^https?:\/\/.*\.duolingo\.c(n|om)\/.*\/batch, script-path=https://raw.githubusercontent.com/dragon-tang/qinglong_auto_tools/refs/heads/master/lingoDuo-xaM-enhanced-debug.js, requires-body=true, timeout=120, max-size=10485760, debug=true, argument=[{xp_boost}, {multiplier}]
+
+挑战时长修改 = type=http-response, pattern=^https?:\/\/(ios-api-[a-z0-9-]+|api\d+)\.duolingo\.c(n|om)\/.*\/live-ops-challenges, script-path=https://raw.githubusercontent.com/TAKAGIVEGETA/MyScripts/refs/heads/main/lingoDuo/lingoDuo-time-modifier.js, requires-body=true, timeout=120, argument=[{{{timer_mins}}}]
+
+[MITM]
+hostname = %APPEND% *.duolingo.cn, *.duolingo.com
