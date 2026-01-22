@@ -12,7 +12,7 @@ try {
         userdata.isPlus = true;
         userdata.hasMax = true;           // 档案显示 Max 标志的关键
         userdata.isMax = true;            // 权限判定
-        userdata.subscriberLevel = 'MAX'; // 建议改为 MAX，若不显示标志可改回 'GOLD'
+        userdata.subscriberLevel = 'GOLD'; // 建议改为 MAX，若不显示标志可改回 'GOLD'
         userdata.canUsePlusHearts = true;
 
         if (!userdata.shopItems) userdata.shopItems = [];
